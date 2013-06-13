@@ -1,0 +1,26 @@
+<% if @feed_items.first == feed_item %>
+<div class="top_article">
+	<% else %>
+	<div class="other_article">
+		<% end %>
+
+		<h4 class="article_title"><A HREF=<%= feed_item.url %>><%= feed_item.title %></A></h4>
+		<% if feed_item.picture %>
+		<A HREF=<%= feed_item.url %>><img src=<%= feed_item.picture %> alt=<%= feed_item.picture %>/></A>
+		<% end %>
+		<div class="description">
+			<%= feed_item.description %>
+		</div>
+		<div class="bottom_info">
+			&nbsp; <span class="posted_time"> Posted <%= time_ago_in_words(feed_item.created_at) %> ago. </span>
+		</div>
+
+		<% if !request.fullpath.eql?("/") %>
+		<% if feed_item.users.include?(current_user) %>
+		<%= link_to "delete", feed_item, method: :delete,
+		data: { confirm: "You sure?" },
+		title: feed_item.title%>
+		<% end %>
+		<% end %>
+
+	</div>

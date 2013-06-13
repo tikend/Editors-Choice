@@ -1,0 +1,11 @@
+<%= form_tag("/") do %>
+<%= select_tag :name, options_for_select( @categories.collect {|c| [c.name]}, params[:name])%>
+<button type="submit" class="btn btn-primary">Show</button>
+<% end %>
+
+<% if @feed_items.any? %>
+<ol class="microposts">
+	<%= render partial: 'shared/feed_item', collection: @feed_items %>
+</ol>
+<%= will_paginate @feed_items %>
+<% end %>

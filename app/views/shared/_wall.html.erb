@@ -1,0 +1,5 @@
+<% if @feed_items.any? %>
+<div id="wall">
+	<%= render partial: 'shared/feed_item', collection: @feed_items %>
+</div>
+<% end %>

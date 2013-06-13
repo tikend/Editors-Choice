@@ -1,0 +1,32 @@
+<%= stylesheet_link_tag "wall_style" %>
+<% if signed_in? %>
+<div class="container-fluid">
+	<%= render 'shared/category' %>
+	<div class="row-fluid">
+		<aside class="span2">
+			<section>
+				<%= render 'shared/user_info' %>
+			</section>
+			<!-- <section>
+			<%= render 'shared/stats' %>
+			</section> -->
+			<section>
+				<%= render 'shared/micropost_form' %>
+			</section>
+		</aside>
+		<div class="span10">
+			<%= render 'shared/wall' %>
+		</div>
+	</div>
+</div>
+<% else %>
+<div class="center hero-unit">
+	<h1>Editor's Choice</h1>
+
+	<h2> Be editor of your own newspaper </h2>
+
+	<%= link_to "Sign up now!", signup_path,
+	class: "btn btn-large btn-primary" %>
+</div>
+
+<% end %>

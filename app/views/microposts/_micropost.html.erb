@@ -1,0 +1,13 @@
+<li>
+	<span class="content"><A HREF=<%= micropost.url %>><%= micropost.title %></A></span>
+	<% if micropost.picture %>
+	<span class="content"><img src=<%= micropost.picture %> alt=<%= micropost.picture %>></span>
+	<% end %>
+	<span class="content"><%= micropost.description%></span>
+	<span class="timestamp"> Posted <%= time_ago_in_words(micropost.created_at) %> ago. </span>
+	<% if micropost.users.include?(current_user) %>
+	<%= link_to "delete", micropost, method: :delete,
+	data: { confirm: 'You sure?' },
+	title: micropost.title %>
+	<% end %>
+</li>
