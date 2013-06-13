@@ -104,8 +104,9 @@ div.bottom_info {
 	font-size: 14px;
 }
 
-span.views {background-color#800080;
-
+span.views {
+	
+	background-color: #800080;
 	position: absolute;
 	left: 0px;
 }
