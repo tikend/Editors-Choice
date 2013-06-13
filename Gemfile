@@ -14,7 +14,7 @@ gem 'ruby-stemmer'
 gem 'capistrano'
 
 group :development, :test do
-  gem 'pg', '0.12.2'
+  gem 'pg'
   gem 'rspec-rails', '2.11.0'
   gem 'guard-rspec', '1.2.1'
   gem 'guard-spork', '1.2.0'  
@@ -41,4 +41,6 @@ end
 
 group :production do
   gem 'pg'
+  gem 'execjs'
+  gem 'gsl'
 end
