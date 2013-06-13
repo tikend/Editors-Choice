@@ -42,6 +42,5 @@ end
 group :production do
   gem 'pg'
   gem 'execjs'
-  gem 'gsl'
   gem 'passenger'
 end
