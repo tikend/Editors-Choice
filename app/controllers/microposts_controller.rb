@@ -180,7 +180,7 @@ class MicropostsController < ApplicationController
       @micropost.description.slice! 197..-1
       @micropost.description += "..."
     elsif(@micropost.description.length > 200 && @micropost.picture.length > 0)
-      @micropost.description.slice! 127..-1
+      @micropost.description.slice! 117..-1
       @micropost.description += "..."
     end
   end
