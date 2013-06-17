@@ -3,3 +3,27 @@
 	<%= render partial: 'shared/feed_item', collection: @feed_items %>
 </div>
 <% end %>
+
+<script type="text/javascript">
+	function changeHeight(fourth) {
+		var line = [fourth.prev().height(), fourth.prev().prev().height(), fourth.prev().prev().prev().height()];
+		var height = Math.max.apply(Math, line);
+		var elements = [fourth.prev(), fourth.prev().prev(), fourth.prev().prev().prev()];
+		$.each(elements, function() {
+			$(this).attr('style', 'height: ' + height + 'px');
+		});
+	}
+
+
+	$(document).ready(function() {
+		$(".other_article:nth-of-type(3n+1)").attr('style', 'clear: both');
+		var iterator = 0;
+		$('.other_article').each(function() {
+			var currentElement = $(this);
+			if (iterator % 3 == 0) {
+				changeHeight(currentElement);
+			}
+			iterator++;
+		});
+	}); 
+</script>

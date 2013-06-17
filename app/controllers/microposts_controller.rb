@@ -169,20 +169,20 @@ class MicropostsController < ApplicationController
       end
     end
     
-    limit_description_length
+    # limit_description_length
     if(@micropost.category == nil || @micropost.category.length < 1)
      @micropost.category = "All"
     end
   end
   
-  def limit_description_length
-    if(@micropost.description.length > 200 && @micropost.picture.length == 0)
-      @micropost.description.slice! 197..-1
-      @micropost.description += "..."
-    elsif(@micropost.description.length > 200 && @micropost.picture.length > 0)
-      @micropost.description.slice! 117..-1
-      @micropost.description += "..."
-    end
-  end
+  # def limit_description_length
+    # if(@micropost.description.length > 300 && @micropost.picture.length == 0)
+      # @micropost.description.slice! 297..-1
+      # @micropost.description += "..."
+    # elsif(@micropost.description.length > 200 && @micropost.picture.length > 0)
+      # @micropost.description.slice! 117..-1
+      # @micropost.description += "..."
+    # end
+  # end
   
 end
