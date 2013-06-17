@@ -34,6 +34,7 @@ GEM
       sass (~> 3.2)
     bootstrap-will_paginate (0.0.9)
       will_paginate
+    bower-rails (0.3.3)
     builder (3.0.4)
     capistrano (2.15.4)
       highline
@@ -239,6 +240,7 @@ DEPENDENCIES
   bcrypt-ruby (= 3.0.1)
   bootstrap-sass
   bootstrap-will_paginate (= 0.0.9)
+  bower-rails
   capistrano
   capybara (= 1.1.2)
   classifier

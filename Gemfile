@@ -12,6 +12,7 @@ gem 'json'
 gem 'classifier'
 gem 'ruby-stemmer'
 gem 'capistrano'
+gem "bower-rails"
 
 group :development, :test do
   gem 'pg'
