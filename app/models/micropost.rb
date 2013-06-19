@@ -43,6 +43,13 @@ class Micropost < ActiveRecord::Base
     find_by_sql ["select * from microposts where category ~ ? order by count desc NULLS LAST, created_at desc", category]
   end
   
+  def self.from_user(id)
+    find_by_sql ["select * from microposts m
+      join userposts u on micropost_id = m.id
+      join users us on us.id = user_id
+      where us.id = ?", id]
+  end
+  
   def self.from_users_followed_by(user, category)
       
         find_by_sql ["select * from(select p.* from microposts p join userposts up on up.micropost_id = p.id
