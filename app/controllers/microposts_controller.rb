@@ -16,15 +16,23 @@ class MicropostsController < ApplicationController
   end
 
   def create_and_save_micropost
+
     if @micropost.save
       Userpost.find_or_create_by_user_id_and_micropost_id(user_id: current_user.id, micropost_id: @micropost.id)
-      create_the_list_of_tags_for_artice_if_none_in_tags
-      set_general_category_for_article  
-      save_tags_and_categories_for_article 
-      redirect_to root_url
+      # create_the_list_of_tags_for_artice_if_none_in_tags
+      # set_general_category_for_article  
+      # save_tags_and_categories_for_article 
+      # redirect_to root_url
       flash[:success] = "Post created"
     else
       flash[:warning] = "Something went wrong"
+      # redirect_to root_url
+    end
+   if (@micropost.category == nil || @micropost.category.length < 1)
+      session[:categories] = Category.all
+      session[:micropost] = @micropost.id
+      task_list = redirect_to '/categories'
+    else
       redirect_to root_url
     end
   end
@@ -61,12 +69,12 @@ class MicropostsController < ApplicationController
   end
   
   def save_tags_and_categories_for_article 
-    @newTag.each do |tag|
-        Posttag.find_or_create_by_tag_id_and_micropost_id(tag_id: tag.id, micropost_id: @micropost.id)
-        Tagcategory.find_or_create_by_tag_id_and_category_id(tag_id: tag.id, category_id: Category.find_or_create_by_name(name: "All").id)
-        Tagcategory.find_or_create_by_tag_id_and_category_id(tag_id: tag.id, category_id: @category.id)
-    end
-    @newTag.clear
+    # @newTag.each do |tag|
+        # Posttag.find_or_create_by_tag_id_and_micropost_id(tag_id: tag.id, micropost_id: @micropost.id)
+        # Tagcategory.find_or_create_by_tag_id_and_category_id(tag_id: tag.id, category_id: Category.find_or_create_by_name(name: "All").id)
+        # Tagcategory.find_or_create_by_tag_id_and_category_id(tag_id: tag.id, category_id: @category.id)
+    # end
+    # @newTag.clear
   end
 
   def destroy
@@ -129,7 +137,7 @@ class MicropostsController < ApplicationController
       when /^(.*)author$/
         @micropost.author ||= "#{meta.attribute("content")}"
       when /^(.*)description$/
-        @micropost.description = "#{meta.attribute("content")}"
+        @micropost.description ||= "#{meta.attribute("content")}"
       when /^(.*)thumbnail$/
         @micropost.picture ||= "#{meta.attribute("content")}"
       when /^(.*)image$/
@@ -151,13 +159,13 @@ class MicropostsController < ApplicationController
   end
   
   def create_tag(tag)
-    tag.gsub!(/\W+/, '')
-    # if(tag.lang == "en")
-      # tag.stem
+    # tag.gsub!(/\W+/, '')
+    # # if(tag.lang == "en")
+      # # tag.stem
+    # # end
+    # if(tag.length > 6)
+       # @newTag << Tag.find_or_create_by_name(name: "#{tag}")
     # end
-    if(tag.length > 6)
-       @newTag << Tag.find_or_create_by_name(name: "#{tag}")
-    end
   end
   
   def parse_parameters(doc, site)  
@@ -170,14 +178,13 @@ class MicropostsController < ApplicationController
     end
     
     limit_description_length
-    if(@micropost.category == nil || @micropost.category.length < 1)
-     @micropost.category = "All"
-    end
   end
   
   def limit_description_length
-      @micropost.description.slice! 300..-1
+    if(@micropost.description.length > 200)
+      @micropost.description.slice! 200..-1
       @micropost.description += "..."
+     end
   end
   
 end

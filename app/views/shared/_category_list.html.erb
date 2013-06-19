@@ -1,0 +1,15 @@
+<div class="btn-toolbar">
+	<%= @categories.collect do |category| %>
+	<button class="btn" type="submit" onClick="window.location = '/';">
+		<%= category.name %>
+	</button>
+	<% end %>
+
+</div>
+<script type="text/javascript">
+	$('.btn').on('click', function(e) {
+		$.post("/aricle_category", {
+			name : $(this).text()
+		})
+	}); 
+</script>

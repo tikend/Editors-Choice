@@ -5,11 +5,11 @@ class StaticPagesController < ApplicationController
     if signed_in?
       @micropost  = current_user.microposts.build
       @categories = Category.find_non_empty
-      # if(session[:category] == "All")
-      # @feed_items = current_user.feed(".*").paginate(page: params[:page])
-      # else
-      @feed_items = current_user.feed(session[:category]).paginate(page: params[:page])
-    # end
+      if(session[:category] == "All")
+        @feed_items = current_user.feed(".*").paginate(page: params[:page])
+      else
+        @feed_items = current_user.feed(session[:category]).paginate(page: params[:page])
+      end
     end
   end
 
@@ -33,6 +33,12 @@ class StaticPagesController < ApplicationController
     end
     session[:category] = params[:name].delete("\n").delete("\t")
     # puts session[:category]
+    redirect_to root_url
+  end
+
+  def set_category_for_article
+    @micropost = Micropost.find(session[:micropost])
+    @micropost.update_column(:category, params[:name].delete("\n").delete("\t"))
     redirect_to root_url
   end
 end

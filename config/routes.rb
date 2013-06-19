@@ -18,8 +18,10 @@ SampleApp::Application.routes.draw do
 
   match '/signup',  to: 'users#new'
   match '/news',    to: 'static_pages#news'
+  match '/categories', to: 'static_pages#categories'
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
+  match '/aricle_category', to: 'static_pages#set_category_for_article'
 
   match '/help',    to: 'static_pages#help'
   match '/about',   to: 'static_pages#about'

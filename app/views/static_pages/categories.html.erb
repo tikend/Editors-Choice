@@ -1,0 +1,9 @@
+<% @categories = session[:categories]%>
+<div class="container-fluid">
+
+	<div class="center hero-unit">
+		<h2> We were not able to detect category of your article. Please, help us prevent this in the future, by choosing category manually. </h2>
+		<%= render partial:'shared/category_list' %>
+	</div>
+
+</div>
