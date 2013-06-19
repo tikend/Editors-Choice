@@ -1,18 +1,22 @@
 <div class="btn-group">
-	<%= form_tag do %>
 	<%= @categories.collect do |category| %>
 
-	<button class="btn" type="submit">
+	<% if category.name == session[:category] %>
+	<button class="btn btn-inverse" type="submit" onClick="window.location.reload()">
 		<%= category.name %>
 	</button>
-	<% end%>
+	<% else %>
+	<button class="btn" type="submit" onClick="window.location.reload()">
+		<%= category.name %>
+	</button>
+	<% end %>
 	<% end %>
 </div>
 
 <script type="text/javascript">
 	$('.btn').on('click', function(e) {
-		$.post("/chooseCategory", {
-			name: $(this).text()
+		$.post("/set_category", {
+			name : $(this).text()
 		})
 	}); 
 </script>

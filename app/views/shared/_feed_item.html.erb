@@ -11,9 +11,6 @@
 		<div class="description">
 			<%= feed_item.description %>
 		</div>
-		<!-- <div class="bottom_info">
-			&nbsp; <span class="posted_time"> Posted <%= time_ago_in_words(feed_item.created_at) %> ago. </span>
-		</div> -->
 
 		<% if !request.fullpath.eql?("/") %>
 		<% if feed_item.users.include?(current_user) %>

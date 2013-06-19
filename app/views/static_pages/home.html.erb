@@ -1,15 +1,16 @@
-<%= stylesheet_link_tag "wall_style" %>
 <% if signed_in? %>
 <div class="container-fluid">
-	<%= render 'shared/category' %>
+	<div class="row-fluid">
+		<div class="span12">
+			<%= render 'shared/category' %>
+		</div>
+	</div>
+
 	<div class="row-fluid">
 		<aside class="span2">
 			<section>
 				<%= render 'shared/user_info' %>
 			</section>
-			<!-- <section>
-			<%= render 'shared/stats' %>
-			</section> -->
 			<section>
 				<%= render 'shared/micropost_form' %>
 			</section>
@@ -27,6 +28,9 @@
 
 	<%= link_to "Sign up now!", signup_path,
 	class: "btn btn-large btn-primary" %>
+
+	<%= link_to "...or just read the news", news_path,
+	class: "btn btn-large btn btn-danger" %>
 </div>
 
 <% end %>

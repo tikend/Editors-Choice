@@ -1,20 +1,24 @@
 class StaticPagesController < ApplicationController
   require 'will_paginate/array'
 
-
   def home
     if signed_in?
       @micropost  = current_user.microposts.build
-      if(current_user.category == "All")
-        @feed_items = current_user.feed(".*").paginate(page: params[:page])
-      else
-        @feed_items = current_user.feed(current_user.category).paginate(page: params[:page])
-      end
-      @categories = Category.find(:all, :order => "name")
+      @categories = Category.find_non_empty
+      # if(session[:category] == "All")
+      # @feed_items = current_user.feed(".*").paginate(page: params[:page])
+      # else
+      @feed_items = current_user.feed(session[:category]).paginate(page: params[:page])
+    # end
     end
   end
 
   def help
+  end
+
+  def news
+    @feed_items = Micropost.get_all_news(session[:category])
+    @categories = Category.find_non_empty
   end
 
   def about
@@ -23,9 +27,12 @@ class StaticPagesController < ApplicationController
   def contact
   end
 
-  def setCategory
-    # current_user.set_category(params[:name].delete("\n").delete("\t"), current_user)
-    # current_user.category = params[:name].delete("\n").delete("\t")
-    current_user.update_column(:category, params[:name].delete("\n").delete("\t"))
+  def set_category
+    if(signed_in?)
+      current_user.update_column(:category, params[:name].delete("\n").delete("\t"))
+    end
+    session[:category] = params[:name].delete("\n").delete("\t")
+    # puts session[:category]
+    redirect_to root_url
   end
 end
