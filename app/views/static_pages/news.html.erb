@@ -1,6 +1,6 @@
 <% provide(:title, "Editor's news") %>
-<% if @feed_items.any? %>
 <%= render partial: 'shared/category' %>
+<% if @feed_items.any? %>
 <div class="container-fluid">
 	<div id="wall">
 		<%= render partial: 'shared/feed_item', collection: @feed_items %>

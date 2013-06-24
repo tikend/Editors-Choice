@@ -17,8 +17,8 @@ class StaticPagesController < ApplicationController
   end
 
   def news
-    @feed_items = Micropost.get_all_news(session[:category])
     @categories = Category.find_non_empty
+    @feed_items = Micropost.get_all_news(session[:category])
   end
 
   def about
