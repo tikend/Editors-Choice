@@ -23,18 +23,19 @@ class MicropostsController < ApplicationController
       # set_general_category_for_article  
       # save_tags_and_categories_for_article 
       # redirect_to root_url
+      if (@micropost.category == nil || @micropost.category.length < 1)
+        session[:categories] = Category.all
+        session[:micropost] = @micropost.id
+        task_list = redirect_to '/categories'
+      else
+        redirect_to root_url
+      end
       flash[:success] = "Post created"
     else
       flash[:warning] = "Something went wrong"
-      # redirect_to root_url
-    end
-   if (@micropost.category == nil || @micropost.category.length < 1)
-      session[:categories] = Category.all
-      session[:micropost] = @micropost.id
-      task_list = redirect_to '/categories'
-    else
       redirect_to root_url
     end
+   
   end
 
   def start_parsing_site
